@@ -1,5 +1,7 @@
 package home.dr.leetcode.validParentheses;
 
+import java.util.Stack;
+
 public class Solution {
 
     /**
@@ -9,18 +11,18 @@ public class Solution {
      */
     public boolean isValid(String s) {
 
-        String currentS = s;
-        while (!s.isEmpty()) {
-
-            currentS = s;
-            s = s.replace("()", "").replace("{}", "").replace("[]", "");
-
-
-            if (currentS.length() == s.length()) {
+        Stack<Character> stack = new Stack<Character>();
+        for (char c : s.toCharArray()) {
+            if (c == '(')
+                stack.push(')');
+            else if (c == '{')
+                stack.push('}');
+            else if (c == '[')
+                stack.push(']');
+            else if (stack.isEmpty() || stack.pop() != c)
                 return false;
-            }
-
         }
-        return true;
+
+        return stack.isEmpty();
     }
 }
